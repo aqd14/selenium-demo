@@ -67,31 +67,51 @@ public class AssertionUtil {
 		}
 	}
 	
+	public static void assertFutureStudentPage(WebDriver driver) {
+		String expectedHrefFreshman = "http://www.admissions.msstate.edu/freshmen/about-msu/";
+		String expectedFreshmanImgSrc = "www.msstate.edu/sites/www.msstate.edu/files/future-freshmen.jpg";
+		
+		// Home page is no longer display
+		boolean isHomePageDisplayed = AssertionUtil.isElementPresent(driver, By.id("feature"));
+		Assert.assertFalse(isHomePageDisplayed);
+
+		// Check correct href attribute to freshmen page
+		String actualHrefFreshman = AssertionUtil.getAttributeByXpath(driver,
+				By.xpath("//*[@id=\"block-views-editable-blocks-future-index\"]/div/div[1]/div[1]/a"), "href");
+		Assert.assertTrue(actualHrefFreshman.contains(expectedHrefFreshman));
+
+		// Check freshman image source
+		String freshmanImgSrc = AssertionUtil.getAttributeByXpath(driver,
+				By.xpath("//*[@id=\"block-views-editable-blocks-future-index\"]/div/div[1]/div[1]/a/div[1]"), "style");
+		Assert.assertTrue(freshmanImgSrc.contains(expectedFreshmanImgSrc));
+	}
+	
 	/**
 	 * Assert GUIs and contents of [International Student] page
 	 * @param driver
 	 */
 	public static void assertInternationalStudentPage(WebDriver driver) {
 		List<String> expectedSections = Arrays.asList("Immigration Information", "English Language Institute",
-				"Shackouls Honors College", "MSU", "Starkville", "New Student Services");
-		List<String> expectedLinks = Arrays.asList("/future/pre/index.php", "/esl/index.php",
-				"http://www.honors.msstate.edu/about/index.php", "/future/msu/index.php",
-				"/future/starkville/index.php", "/future/newstudentservices/index.php");
+		        "Shackouls Honors College", "MSU", "Starkville", "New Student Services");
+		List<String> expectedLinks = Arrays.asList("http://international.msstate.edu/future/pre/index.php",
+		        "http://international.msstate.edu/esl/index.php", "http://www.honors.msstate.edu/about/index.php",
+		        "http://international.msstate.edu/future/msu/index.php",
+		        "http://international.msstate.edu/future/starkville/index.php",
+		        "http://international.msstate.edu/future/newstudentservices/index.php");
 		
 		// Check image source
 		Assert.assertTrue(driver.findElement(By.xpath("//*[@id=\"therest\"]/div/div[1]/img")).getAttribute("src").contains("Students.jpg"));
 		// Check text
 		Assert.assertEquals(driver.findElement(By.xpath("//*[@id=\"thetitle\"]/h1")).getText(), "Prospective Students");
 		// Check side sections
-		List<WebElement> elements = driver.findElements(By.xpath("//*[@id=\"sideNav\"]/ul/li"));
+		List<WebElement> elements = driver.findElements(By.xpath("//*[@id=\"sideNav\"]/ul/li/a"));
 		
 		List<String> actualSections = new ArrayList<String>();
-		List<String> actualLinks = new ArrayList<String>();;
+		List<String> actualLinks = new ArrayList<String>();
 		for (WebElement e : elements) {
 			actualSections.add(e.getText());
 			actualLinks.add(e.getAttribute("href"));
 		}
-		
 		Assert.assertEquals(actualSections, expectedSections);
 		Assert.assertEquals(actualLinks, expectedLinks);
 	}
