@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Msstate Web Testing" parallel="tests" thread-count="3">
+
+	<test name="gui_test">
+		<classes>
+			<class name="org.msu.testng.gui.HomePageTest" />
+		</classes>
+	</test>
+
+	<test name="loading_test">
+		<classes>
+			<class name="org.msu.testng.performance.HomePageLoadingTest" />
+		</classes>
+	</test>
+
+	<test name="navigation_test">
+		<classes>
+			<class name="org.msu.testng.navigation.HomePageNavigationTest" />
+		</classes>
+	</test>
+
+</suite>
