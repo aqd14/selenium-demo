@@ -19,6 +19,10 @@ public class HomePageNavigationTest extends BaseTest {
 		// Wait some time for the element to be clickable
 		Thread.sleep(1000);
 		e.click();
+		
+		// Home page is no longer display
+		boolean isHomePageDisplayed = AssertionUtil.isElementPresent(driver, By.id("feature"));
+		Assert.assertFalse(isHomePageDisplayed);
 
 		// Check correct href attribute to freshmen page
 		String actualHrefFreshman = AssertionUtil.getAttributeByXpath(driver,

@@ -14,7 +14,7 @@ public class HomePageTest extends BaseTest {
 	public void testTitle() {
 		String expectedTitle = "Mississippi State University | Home";
 		String actualTitle = AssertionUtil.getAttributeByXpath(driver, By.xpath("//*[@id=\"wrapper\"]/header/div[1]/div/div/div/div[1]/a"), "title");
-		Assert.assertEquals(expectedTitle, actualTitle);
+		Assert.assertEquals(actualTitle, expectedTitle);
 	}
 	
 	/**
@@ -24,6 +24,6 @@ public class HomePageTest extends BaseTest {
 	public void testIcon() {
 		String expectedMsuIcon = "//cdn01.its.msstate.edu/i/logos/msstate/msstate_horizontal_white.svg";
 		String actualMsuIcon = AssertionUtil.getAttributeByXpath(driver, By.xpath("//*[@id=\"wrapper\"]/header/div[1]/div/div/div/div[1]/a/img"), "src");
-		Assert.assertEquals(expectedMsuIcon, actualMsuIcon);
+		Assert.assertEquals(actualMsuIcon, expectedMsuIcon);
 	}
 }
