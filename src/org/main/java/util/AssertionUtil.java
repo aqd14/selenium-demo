@@ -7,7 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -37,9 +36,21 @@ public class AssertionUtil {
 	 * @return
 	 */
 	public static boolean waitUntilElementPresent(WebDriver driver, int timeout, By by) {
-		return false;
+		WebDriverWait wait = new WebDriverWait(driver, timeout);
+		try {
+			wait.until(ExpectedConditions.presenceOfElementLocated(by));
+			return true;
+		} catch (TimeoutException e) {
+			return false;
+		}
 	}
 	
+	/**
+	 * Check if an element is present or not. Default timeout for checking is 2 seconds
+	 * @param driver
+	 * @param by
+	 * @return
+	 */
 	public static boolean isElementPresent(WebDriver driver, By by) {
 		WebDriverWait wait = new WebDriverWait(driver, 2); // Wait 2 seconds for presence of element
 		try {

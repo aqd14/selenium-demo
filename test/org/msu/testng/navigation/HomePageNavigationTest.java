@@ -1,30 +1,40 @@
 package org.msu.testng.navigation;
 
-import org.junit.Assert;
 import org.main.java.util.AssertionUtil;
 import org.msu.testng.main.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-import org.testng.asserts.Assertion;
 
 public class HomePageNavigationTest extends BaseTest {
 
 	@Test
-	public void navigateToStudentPage() {
+	public void navigateToStudentPage() throws InterruptedException {
+		String expectedHrefFreshman = "http://www.admissions.msstate.edu/freshmen/about-msu/";
+		String expectedFreshmanImgSrc = "www.msstate.edu/sites/www.msstate.edu/files/future-freshmen.jpg";
+		
 		WebElement e = driver.findElement(By.id("item_future-students"));
 		e.click();
-		// Check href display
-		boolean isHrefDisplayed = AssertionUtil.isElementPresent(driver,
-		        By.xpath("//*[@id=\"block-views-editable-blocks-future-index\"]/div/div[1]/div[1]/a"));
-		Assert.assertTrue(isHrefDisplayed);
+		// Wait some time for the element to be clickable
+		Thread.sleep(1000);
+		e.click();
+
+		// Check correct href attribute to freshmen page
+		String actualHrefFreshman = AssertionUtil.getAttributeByXpath(driver,
+				By.xpath("//*[@id=\"block-views-editable-blocks-future-index\"]/div/div[1]/div[1]/a"), "href");
+		Assert.assertTrue(actualHrefFreshman.contains(expectedHrefFreshman));
+
 		// Check freshman image source
-		String freshmanImgSrc = AssertionUtil.getAttributeByXpath(driver, By.xpath("//*[@id=\"block-views-editable-blocks-future-index\"]/div/div[1]/div[1]/a/div[1]"), "style");
-		String expectedFreshmanImgSrc = "www.msstate.edu/sites/www.msstate.edu/files/future-freshmen.jpg";
+		String freshmanImgSrc = AssertionUtil.getAttributeByXpath(driver,
+				By.xpath("//*[@id=\"block-views-editable-blocks-future-index\"]/div/div[1]/div[1]/a/div[1]"), "style");
 		Assert.assertTrue(freshmanImgSrc.contains(expectedFreshmanImgSrc));
 	}
 	
+	@Test(priority = 2, dependsOnMethods = {"navigateToStudentPage"})
 	public void navigateBackToHomePage() {
-		AssertionUtil.waitUntilElementPresent(driver, 5, By.id("feature"));
+		driver.navigate().back();
+		boolean isHomePageDisplayed = AssertionUtil.waitUntilElementPresent(driver, 5, By.id("feature"));
+		Assert.assertTrue(isHomePageDisplayed);
 	}
 }
