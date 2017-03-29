@@ -19,7 +19,7 @@ import org.testng.annotations.BeforeClass;
 public class BaseTest {
 	protected WebDriver driver;
 	protected String webDriverPath;
-	protected final String URL = "http://www.msstate.edu/";
+	protected final String MSU_URL = "http://www.msstate.edu/";
 	/**
 	 * 
 	 */
@@ -44,7 +44,7 @@ public class BaseTest {
 		System.setProperty("webdriver.chrome.driver", webDriverPath);
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.get(URL);
+		driver.get(MSU_URL);
 	}
 	
 	/**
