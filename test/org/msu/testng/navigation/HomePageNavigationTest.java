@@ -35,9 +35,15 @@ public class HomePageNavigationTest extends BaseTest {
 		Assert.assertTrue(freshmanImgSrc.contains(expectedFreshmanImgSrc));
 	}
 	
-	@Test(priority = 2, dependsOnMethods = {"navigateToStudentPage"})
+	@Test (priority = 2, dependsOnMethods = {"navigateToStudentPage"})
+	public void navigateToInternationalStudentPage() {
+		driver.findElement(By.id("//*[@id=\"block-views-editable-blocks-future-index\"]/div/div[2]/div[1]/a")).click();
+		AssertionUtil.assertInternationalStudentPage(driver);
+	}
+	
+	@Test(priority = 3, dependsOnMethods = {"navigateToInternationalStudentPage"})
 	public void navigateBackToHomePage() {
-		driver.navigate().back();
+		driver.findElement(By.xpath("//*[@id=\"intlheader\"]/div[1]/a/div[1]/img")).click();
 		boolean isHomePageDisplayed = AssertionUtil.waitUntilElementPresent(driver, 5, By.id("feature"));
 		Assert.assertTrue(isHomePageDisplayed);
 	}
