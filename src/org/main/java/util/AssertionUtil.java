@@ -67,6 +67,13 @@ public class AssertionUtil {
 		}
 	}
 	
+	public static void assertHomePage(WebDriver driver) {
+		String expectedTitle = "Mississippi State University";
+		boolean isHomePagePresent = AssertionUtil.waitUntilElementPresent(driver, 2, By.id("feature"));
+		Assert.assertTrue(isHomePagePresent);
+		Assert.assertEquals(driver.getTitle(), expectedTitle);
+	}
+	
 	public static void assertFutureStudentPage(WebDriver driver) {
 		String expectedHrefFreshman = "http://www.admissions.msstate.edu/freshmen/about-msu/";
 		String expectedFreshmanImgSrc = "www.msstate.edu/sites/www.msstate.edu/files/future-freshmen.jpg";
