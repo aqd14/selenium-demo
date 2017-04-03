@@ -58,7 +58,7 @@ public class AssertionUtil {
 	 * @return
 	 */
 	public static boolean isElementPresent(WebDriver driver, By by) {
-		WebDriverWait wait = new WebDriverWait(driver, 2); // Wait 2 seconds for presence of element
+		WebDriverWait wait = new WebDriverWait(driver, 5); // Wait 2 seconds for presence of element
 		try {
 			wait.until(ExpectedConditions.presenceOfElementLocated(by));
 			return true;

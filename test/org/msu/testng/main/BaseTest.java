@@ -44,6 +44,7 @@ public class BaseTest {
 		System.setProperty("webdriver.chrome.driver", webDriverPath);
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 		driver.get(MSU_URL);
 	}
 	

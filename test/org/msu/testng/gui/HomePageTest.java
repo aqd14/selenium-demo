@@ -22,7 +22,7 @@ public class HomePageTest extends BaseTest {
 	 */
 	@Test
 	public void testIcon() {
-		String expectedMsuIcon = "//cdn01.its.msstate.edu/i/logos/msstate/msstate_horizontal_white.svg";
+		String expectedMsuIcon = "http://cdn01.its.msstate.edu/i/logos/msstate/msstate_horizontal_maroon.svg";
 		String actualMsuIcon = AssertionUtil.getAttributeByXpath(driver, By.xpath("//*[@id=\"wrapper\"]/header/div[1]/div/div/div/div[1]/a/img"), "src");
 		Assert.assertEquals(actualMsuIcon, expectedMsuIcon);
 	}
